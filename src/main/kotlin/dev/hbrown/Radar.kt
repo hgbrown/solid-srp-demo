@@ -15,10 +15,10 @@ class Radar(private val radarLatitude: Int, private val radarLongitude: Int) {
      *
      * @param range the range within which to detect aircraft.
      * @param allAircraftDetected all the aircraft detected by the radar.
-     * @param latFirst used to format the output, `true` places the latitude first, while `false` places the longitude first.
+     * @param formatter used to format the output.
      * @return a string of the co-ordinates of the aircraft within the given range.
      */
-    fun findAircraftInRange(range: Int, allAircraftDetected: List<AircraftTarget>, latFirst: Boolean): String {
+    fun findAircraftInRange(range: Int, allAircraftDetected: List<AircraftTarget>, formatter: CoordinateOutputFormatter): String {
 
         val aircraftInRange = allAircraftDetected.filter { aircraft ->
             val distance = sqrt( (
@@ -28,12 +28,6 @@ class Radar(private val radarLatitude: Int, private val radarLongitude: Int) {
             distance <= range
         }
 
-        return aircraftInRange.joinToString(separator = " ") {
-            if (latFirst) {
-                "[${it.latitude} ${it.longitude}]"
-            } else {
-                "[${it.longitude} ${it.latitude}]"
-            }
-        }
+        return formatter.format(aircraftInRange)
     }
 }

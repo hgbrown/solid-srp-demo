@@ -1,5 +1,6 @@
 package dev.hbrown
 
+import dev.hbrown.StandardCoordinateOutputFormatters.*
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
 
@@ -9,14 +10,14 @@ internal class RadarTest {
 
     @Test
     internal fun `should be able to get latitude first result`() {
-        val aircraftInRange = cut.findAircraftInRange(6, testAircraftTargets(), true)
+        val aircraftInRange = cut.findAircraftInRange(6, testAircraftTargets(), LATITUDE_FIRST)
 
         assertEquals("[1 2] [6 -3] [3 4]", aircraftInRange)
     }
 
     @Test
     internal fun `should be able to get longitude first result`() {
-        val aircraftInRange = cut.findAircraftInRange(6, testAircraftTargets(), false)
+        val aircraftInRange = cut.findAircraftInRange(6, testAircraftTargets(), LONGITUDE_FIRST)
 
         assertEquals("[2 1] [-3 6] [4 3]", aircraftInRange)
     }
